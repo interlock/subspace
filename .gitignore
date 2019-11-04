@@ -1,2 +1,3 @@
 subspace-linux-amd64
+subspace-linux-arm5
 bindata.go
