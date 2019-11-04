@@ -1,7 +1,7 @@
 FROM phusion/baseimage:master
 MAINTAINER github.com/soundscapecloud/soundscape
 
-COPY subspace-linux-amd64 /usr/bin/subspace
+COPY subspace-linux-arm5 /usr/bin/subspace
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENV DEBIAN_FRONTEND noninteractive
