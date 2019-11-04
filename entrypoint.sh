@@ -99,14 +99,22 @@ fi
 #
 if ! test -d /data/wireguard ; then
     mkdir /data/wireguard
-    cd /data/wireguard
+fi
 
-    mkdir clients
-    touch clients/null.conf # So you can cat *.conf safely
-    mkdir peers
-    touch peers/null.conf # So you can cat *.conf safely
+if ! test -d /data/wireguard/clients ; then
+	
+    mkdir /data/wireguard/clients
+    touch /data/wireguard/clients/null.conf # So you can cat *.conf safely
+fi
 
+if ! test -d /data/wireguard/peers ; then
+    mkdir /data/wireguard/peers
+    touch /data/wireguard/peers/null.conf # So you can cat *.conf safely
+fi
+
+if ! test -f /data/wireguard/server.private ; then
     # Generate public/private server keys.
+	cd /data/wireguard && \
     wg genkey | tee server.private | wg pubkey > server.public
 fi
 
@@ -169,7 +177,7 @@ exec /usr/bin/subspace \
     "--http-insecure=${SUBSPACE_HTTP_INSECURE}" \
     "--backlink=${SUBSPACE_BACKLINK}" \
     "--letsencrypt=${SUBSPACE_LETSENCRYPT}" \
-	"--wg-port=${SUBSPACE_WIREGUARD_PORT}
+    "--wg-port=${SUBSPACE_WIREGUARD_PORT}"
 RUNIT
     chmod +x /etc/sv/subspace/run
 
